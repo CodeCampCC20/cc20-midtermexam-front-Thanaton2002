@@ -6,19 +6,19 @@
 
 - [x] Create Project with Vite (5pts)
 
-- [] Install packages to the project (5pts)
+- [x] Install packages to the project (5pts)
 
-- [] Setup Folder Structures (5pts)
+- [x] Setup Folder Structures (5pts)
 
-- [] Pick some CSS Framework (5pts)
+- [x] Pick some CSS Framework (5pts)
 
 ### Part-2 : Build UI with React Component (35pts)
 
 ### 1. Login Page
 
-- [] Inputs (5pts)
+- [x] Inputs (5pts)
 
-- [] Button to Submit (5pts)
+- [x] Button to Submit (5pts)
 
 ### 2. Todo Page
 
@@ -34,13 +34,13 @@
 
 ### 3.Naming and Structures
 
-- [] Good Naming for Components (5pts)
+- [x] Good Naming for Components (5pts)
 
-- [] Readable Code (easy to read): Good components seperation(10pts)
+- [x] Readable Code (easy to read): Good components seperation(10pts)
 
 ### Part-3 : Feature and Logic (95pts)
 
-- [] Using React Router (10pts)
+- [x] Using React Router (10pts)
 
 - [] Login (Connects to API) (10pts)
 
@@ -58,7 +58,7 @@
 
 - [] Input checkbox could change the data (Connect to API) (10pts)
 
-- [] Good Naming for Functions (5pts)
+- [x] Good Naming for Functions (5pts)
 
 ### Part-3 : Bonus (50pts)
 
