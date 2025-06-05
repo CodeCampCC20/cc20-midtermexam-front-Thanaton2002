@@ -8,6 +8,10 @@ todoApi.post = (input) => {
   return axios.post(`${Base_url}/api/V1/todos`, input)
 }
 
+todoApi.delete = (id, userId) => {
+  return axios.delete(`${Base_url}/api/V1/todos/${id}/${userId}`)
+}
+
 todoApi.getAll = (id) => {
   return axios.get(`${Base_url}/api/V1/todos/${id}`)
 }
