@@ -2,9 +2,9 @@ import { create } from "zustand";
 import todoApi from "../api/todoApi";
 
 export const useTodoStore = create((set)=>({
-  todo : [],
+  todoAbc : [],
   getTodoList : async (id) => {
     const res = await todoApi.getAll(id)
-    set({todo : res.data.todo})
+    set({todoAbc : res.data.todos})
   }
 }))

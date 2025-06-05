@@ -9,7 +9,7 @@ todoApi.post = (input) => {
 }
 
 todoApi.getAll = (id) => {
-  return axios.get(`${Base_url}/api/V1/todos/${id}`,)
+  return axios.get(`${Base_url}/api/V1/todos/${id}`)
 }
 
 export default todoApi

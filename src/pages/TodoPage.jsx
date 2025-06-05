@@ -13,15 +13,15 @@ function TodoPage() {
   const [input, setInput] = useState(initialInput)
   const [isLoading, setIsLoading] = useState(false)
 
-  const UserId = useAuthStore((state) => state.userId)
-  const todoList = useTodoStore((state) => state.todo)
+  const userId = useAuthStore((state) => state.userId)
+  const todoAbc = useTodoStore((state) => state.todoAbc)
   const getTodoList = useTodoStore((state) => state.getTodoList)
 
   useEffect(() => {
-    getTodoList(39)
-    setInput(prev => ({ ...prev, ["userId"]: UserId }))
-    console.log(todoList)
+    getTodoList(userId)
+    setInput(prev => ({ ...prev, ["userId"]: userId }))
   }, [])
+  console.log(todoAbc)
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -33,7 +33,7 @@ function TodoPage() {
     try {
       e.preventDefault()
       setIsLoading(true)
-      
+
       const res = await todoApi.post(input)
       console.log(res.data)
 
@@ -61,7 +61,6 @@ function TodoPage() {
           <h1 className="text-3xl font-bold text-base-100 mb-2">TODO LIST</h1>
           <div className='flex flex-row justify-center items-end gap-2'>
 
-            {/* Input อยู่นี่ */}
             <input
               id="taskName"
               onChange={handleChange}
@@ -73,9 +72,22 @@ function TodoPage() {
             <button className="btn btn-soft" onClick={handleCreate}>Create</button>
           </div>
           <hr className='text-base-300' />
-          {/* {todoList.map(el => (
-            <p>{el.taskName}</p>
-          ))} */}
+          <ul className="list bg-base-100 rounded-box shadow-md overflow-scroll max-h-[300px]">
+            <span className="p-4 pb-2 text-xs opacity-60 tracking-wide">My List</span>
+
+            {todoAbc.map((el) => 
+            <>
+            <li key={el.id} className="list-row">
+              <div className="list-col-grow">
+                <div>{el.id}</div>
+                <div className="text-xs uppercase font-semibold opacity-60">{el.taskName}</div>
+              </div>
+            </li>
+            </>
+            )}
+            
+          </ul>
+
         </form>
       </div>
     </div>
