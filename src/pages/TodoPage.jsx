@@ -3,17 +3,21 @@ import todoApi from "../api/todoApi";
 import { useAuthStore } from '../stores/authStore';
 import { toast } from 'react-toastify';
 import { useTodoStore } from '../stores/todoStore';
-import { SquareX, PencilRuler } from 'lucide-react';
+import { SquareX, PencilRuler, SquareArrowRight } from 'lucide-react';
 
 const initialInput = {
   taskName: '',
   userId: ''
 }
 
+const initialInputEdit = {
+  taskName: '',
+  completed: false
+}
 
 function TodoPage() {
   const [input, setInput] = useState(initialInput)
-  const [inputEdit, setInputEdit] = useState(initialInput)
+  const [inputEdit, setInputEdit] = useState(initialInputEdit)
   const [isEdit, setIsEdit] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -32,6 +36,28 @@ function TodoPage() {
     const { id, value } = e.target
     setInput(prev => ({ ...prev, [id]: value }))
     // setInputError(prev => ({...prev, [id]:''}))
+  }
+
+  const handleChangeEdit = (e) => {
+    const { id, value } = e.target
+    setInputEdit(prev => ({ ...prev, ['taskName']: value }))
+    // setInputError(prev => ({...prev, [id]:''}))
+  }
+  
+
+  const handleSaveChange = async (id) => {
+    try{
+
+      await todoApi.upDate(id, userId, inputEdit)
+      await getTodoList(userId)
+
+      setIsEdit(null)
+      setInputEdit(initialInputEdit)
+
+      toast.success('Edit Success.')
+    } catch (error){
+      toast.error('Edit Error', error)
+    }
   }
 
 
@@ -100,30 +126,30 @@ function TodoPage() {
                   <>
                     <li key={el.id} className="list-row">
                       <div className="list-col-grow">
-                        <div className='cursor-default'>{el.id}</div>
+                        <div className='cursor-default'>No.{el.id} <span className='text-black/50 font-bold text-xs'>{el.createdAt.split('T')[0]}</span></div>
 
                         <input 
                         id={el.id}
+                        onChange={handleChangeEdit}
                         className="input input-xs"
                         value={inputEdit.taskName}
                         />
 
                       </div>
-                      <button key={el.id}><PencilRuler className='w-5 h-5 hover:text-orange-700/70 duration-200 active:text-orange-700/40' /></button>
-                      <button key={el.id}><SquareX className='w-5 h-5 hover:text-red-700/70 duration-200 active:text-red-700/40' /></button>
+                      <button onClick={() => handleSaveChange(el.id)}><SquareArrowRight className='w-5 h-5 hover:text-green-700/70 duration-200 active:text-green-700/40' /></button>
                     </li>
                   </>
                   : <>
                     <li key={el.id} className="list-row">
+                    <input type='checkbox'/>
                       <div className="list-col-grow">
-                        <div className='cursor-default'>{el.id}</div>
+                        <div className='cursor-default'>No.{el.id} <span className='text-black/50 font-bold text-xs'>{el.createdAt.split('T')[0]}</span></div>
                         <div className="text-xs uppercase font-semibold opacity-60 cursor-default">{el.taskName}</div>
                       </div>
-                      <button ><PencilRuler className='w-5 h-5 hover:text-orange-700/70 duration-200 active:text-orange-700/40' /></button>
-                      <button onClick={() => handleDelete(el.id)}><SquareX className='w-5 h-5 hover:text-red-700/70 duration-200 active:text-red-700/40' /></button>
+                      <button  onClick={() => setIsEdit(el.id)}><PencilRuler className='w-5 h-5 hover:text-orange-700/70 duration-200 active:text-orange-700/40' /></button>
+                      <button  onClick={() => handleDelete(el.id)}><SquareX className='w-5 h-5 hover:text-red-700/70 duration-200 active:text-red-700/40' /></button>
                     </li>
                   </>
-
                 }
 
               </>

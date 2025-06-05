@@ -12,6 +12,10 @@ todoApi.delete = (id, userId) => {
   return axios.delete(`${Base_url}/api/V1/todos/${id}/${userId}`)
 }
 
+todoApi.upDate = (id, userId, input) => {
+  return axios.patch(`${Base_url}/api/V1/todos/${id}/${userId}`, input)
+}
+
 todoApi.getAll = (id) => {
   return axios.get(`${Base_url}/api/V1/todos/${id}`)
 }
